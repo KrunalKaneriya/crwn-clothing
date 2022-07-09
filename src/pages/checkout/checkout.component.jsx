@@ -37,9 +37,16 @@ const CheckoutPage = ({ cartItems, total }) => (
     </div>
 );
 
+//Other method to pass mapStateToProps in selectors
+// const mapStateToProps = state => ({
+//     cartItems: selectCartItems(state),
+//     total: selectCartTotal(state)
+// })
+
+//New and short method to use selectors
 const mapStateToProps = createStructuredSelector({
-    cartItems: selectCartItems,
-    total: selectCartTotal
+    cartItems:selectCartItems,
+    total:selectCartTotal
 })
 
 export default connect(mapStateToProps)(CheckoutPage);

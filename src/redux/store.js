@@ -1,8 +1,9 @@
 import { applyMiddleware } from "redux";
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import {logger} from "redux-logger"
-import { rootReducer } from "./root-reducer"
-// import rootReducer
+import { rootReducer } from "./root-reducer";
+import { persistStore } from "redux-persist";
+import persistReducer from "./root-reducer";
 
 
 const serializableCheck = {
@@ -11,7 +12,9 @@ const serializableCheck = {
 }
 const middlewares = [logger,serializableCheck];
 
-const store = configureStore({reducer:rootReducer, middleware: getDefaultMiddleware =>
+
+export const store = configureStore({reducer:persistReducer, middleware: getDefaultMiddleware =>
     getDefaultMiddleware({serializableCheck:false}).concat(logger)
 });
-export default store;
+
+export const persistor = persistStore(store);
